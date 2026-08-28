@@ -12,122 +12,148 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
             --roxo-profundo: #180720;
-            --roxo: #4A1265;
+            --roxo-claro: #4A1265;
             --magenta: #B33C8D;
             --creme: #F7F2EC;
             --branco: #ffffff;
-            --transicao: all 0.5s ease;
+            --cinza: #b7a9bc;
         }
 
+        /* RESET GERAL */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--roxo-profundo);
+        body, html { 
+            height: 100%; 
+            background-color: var(--roxo-profundo); 
+            font-family: 'Montserrat', sans-serif; 
             color: var(--branco);
-            line-height: 1.6;
             overflow-x: hidden;
         }
 
-        h1, h2, h3, .logo-text { font-family: 'Lora', serif; }
+        h1, h2, h3 { font-family: 'Lora', serif; }
         a { text-decoration: none; color: inherit; cursor: pointer; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
 
         /* HEADER FIXO */
         header {
-            padding: 20px 0;
             position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            background: rgba(24, 7, 32, 0.95);
+            top: 0; width: 100%;
+            padding: 20px 0;
+            background: rgba(24, 7, 32, 0.98);
             backdrop-filter: blur(10px);
+            z-index: 9999;
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
         nav { display: flex; justify-content: space-between; align-items: center; }
-        .logo-area { display: flex; align-items: center; gap: 12px; }
+
+        .logo-box { display: flex; align-items: center; gap: 12px; }
         .logo-img { height: 40px; width: auto; }
-        .logo-text { font-size: 1.6rem; letter-spacing: 2px; }
+        .logo-text { font-size: 1.6rem; letter-spacing: 2px; font-family: 'Lora'; }
 
-        .nav-links { display: flex; list-style: none; gap: 25px; }
-        .nav-links a { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; opacity: 0.7; }
-        .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--magenta); }
+        .nav-links { display: flex; list-style: none; gap: 30px; }
+        .nav-links a { 
+            font-size: 0.8rem; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            opacity: 0.6; 
+            transition: 0.3s; 
+        }
+        .nav-links a.active, .nav-links a:hover { opacity: 1; color: var(--magenta); }
 
-        .btn-header {
+        .btn-diagnostico {
             background: var(--magenta);
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 4px;
-            font-weight: 600;
             font-size: 0.75rem;
+            font-weight: 700;
+            transition: 0.3s;
         }
+        .btn-diagnostico:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(179, 60, 141, 0.4); }
 
-        /* LÓGICA DE PÁGINAS SEPARADAS */
-        .page {
-            display: none; /* Esconde todas as páginas */
-            padding-top: 120px; /* Espaço para o header fixo */
+        /* MOTOR DE PÁGINAS (DISPLAY NONE/BLOCK) */
+        .page-content {
+            display: none; /* Todas começam escondidas */
+            padding-top: 120px;
             min-height: 100vh;
-            animation: fadeIn 0.6s ease;
+            animation: pageFade 0.5s ease forwards;
         }
 
-        .page.active {
-            display: block; /* Mostra apenas a página ativa */
+        .page-content.active {
+            display: block; /* Só a ativa aparece */
         }
 
-        @keyframes fadeIn {
+        @keyframes pageFade {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ESTILOS HOME (HERO) */
-        .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 50px; align-items: center; padding: 100px 0; }
-        .hero-text h1 { font-size: 3.5rem; line-height: 1.1; margin: 20px 0; }
-        .diamond-img { width: 100%; max-width: 450px; filter: drop-shadow(0 0 30px rgba(179,60,141,0.3)); animation: float 6s infinite ease-in-out; }
+        /* --- ESTILOS DA PÁGINA: HOME --- */
+        .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; align-items: center; padding: 60px 0; }
+        .hero-text span { color: var(--magenta); font-weight: 700; letter-spacing: 3px; font-size: 0.8rem; }
+        .hero-text h1 { font-size: 3.8rem; line-height: 1.1; margin: 20px 0; }
+        .hero-text p { font-size: 1.2rem; color: var(--cinza); margin-bottom: 40px; }
+        .btn-call { background: var(--magenta); padding: 20px 40px; display: inline-block; border-radius: 4px; font-weight: 700; }
+
+        .diamond-visual { position: relative; display: flex; justify-content: center; }
+        .diamond-img { width: 100%; max-width: 480px; animation: float 6s infinite ease-in-out; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
 
-        .btn-primary { background: var(--magenta); padding: 18px 30px; display: inline-block; border-radius: 4px; font-weight: 700; margin-top: 30px; }
-
-        /* ESTILOS MÉTODO / PLANOS / SOBRE */
-        .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-size: 3rem; color: var(--branco); }
-        .tag { color: var(--magenta); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 10px; }
-
-        /* GRID MÉTODO */
+        /* --- ESTILOS DA PÁGINA: MÉTODO --- */
+        .page-title { text-align: center; margin-bottom: 60px; }
+        .page-title h2 { font-size: 3rem; margin-bottom: 10px; }
         .metodo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
-        .metodo-card { background: rgba(255,255,255,0.03); padding: 40px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05); }
-        .metodo-card h3 { color: var(--magenta); margin-bottom: 15px; }
+        .metodo-card { background: rgba(255,255,255,0.03); padding: 50px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
+        .metodo-card h3 { color: var(--magenta); font-size: 1.5rem; margin-bottom: 20px; display: flex; gap: 15px; }
+        .metodo-card h3 span { opacity: 0.3; }
 
-        /* GRID PLANOS */
-        .planos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
-        .plano-card { background: #13051a; padding: 40px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); position: relative; }
-        .plano-card.featured { border-color: var(--magenta); transform: scale(1.05); }
-        .plano-card ul { list-style: none; margin: 30px 0; }
-        .plano-card li { margin-bottom: 12px; font-size: 0.9rem; color: #ccc; display: flex; gap: 10px; }
-        .plano-card i { color: var(--magenta); }
+        /* --- ESTILOS DA PÁGINA: PLANOS --- */
+        .planos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .plano-card { 
+            background: #13051a; 
+            padding: 50px 30px; 
+            border-radius: 20px; 
+            border: 1px solid rgba(255,255,255,0.05); 
+            text-align: center;
+            transition: 0.3s;
+        }
+        .plano-card.featured { border-color: var(--magenta); transform: scale(1.05); background: #1a0824; }
+        .plano-card h3 { font-size: 2rem; margin-bottom: 20px; }
+        .plano-card ul { list-style: none; text-align: left; margin: 30px 0; min-height: 200px; }
+        .plano-card li { margin-bottom: 12px; font-size: 0.9rem; display: flex; gap: 10px; color: var(--cinza); }
+        .plano-card li i { color: var(--magenta); }
 
-        /* SOBRE */
-        .sobre-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-        .sobre-img { width: 100%; border-radius: 15px; }
+        /* --- ESTILOS DA PÁGINA: SOBRE --- */
+        .sobre-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: center; }
+        .sobre-img-box { position: relative; }
+        .sobre-img { width: 100%; border-radius: 10px; filter: grayscale(1); transition: 0.5s; }
+        .sobre-img:hover { filter: grayscale(0); }
+        .sobre-text h2 { font-size: 2.8rem; margin-bottom: 30px; }
+        .sobre-text p { color: var(--cinza); font-size: 1.1rem; margin-bottom: 20px; }
 
-        /* FOOTER */
-        footer { padding: 80px 0 40px; background: #0a030d; margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.05); }
-        .footer-content { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 50px; }
-        .social-icons { display: flex; gap: 15px; margin-top: 20px; }
-        .social-icons a { font-size: 1.3rem; transition: 0.3s; opacity: 0.6; }
-        .social-icons a:hover { opacity: 1; color: var(--magenta); }
+        /* FOOTER (GLOBAL) */
+        footer { padding: 60px 0; background: #0a030d; border-top: 1px solid rgba(255,255,255,0.05); margin-top: auto; }
+        .footer-flex { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 40px; }
+        .footer-brand p { color: var(--cinza); margin-top: 15px; max-width: 300px; }
+        .social-links { display: flex; gap: 20px; margin-top: 25px; }
+        .social-links a { font-size: 1.4rem; opacity: 0.5; transition: 0.3s; }
+        .social-links a:hover { opacity: 1; color: var(--magenta); transform: translateY(-3px); }
+        .footer-nav h4 { color: var(--magenta); margin-bottom: 20px; font-size: 0.9rem; letter-spacing: 1px; }
+        .footer-nav ul { list-style: none; }
+        .footer-nav li { margin-bottom: 10px; color: var(--cinza); font-size: 0.9rem; }
 
         /* RESPONSIVIDADE */
-        @media (max-width: 900px) {
-            .hero-grid, .metodo-grid, .planos-grid, .sobre-grid, .footer-content { grid-template-columns: 1fr; text-align: center; }
-            .hero-text h1 { font-size: 2.5rem; }
-            .nav-links { display: none; }
+        @media (max-width: 992px) {
+            .hero-grid, .metodo-grid, .planos-grid, .sobre-grid { grid-template-columns: 1fr; text-align: center; }
+            .hero-text h1 { font-size: 2.8rem; }
+            .nav-links, .btn-diagnostico { display: none; }
+            .plano-card.featured { transform: scale(1); }
+            .footer-flex { flex-direction: column; text-align: center; align-items: center; }
         }
     </style>
 </head>
@@ -136,205 +162,196 @@
     <header>
         <div class="container">
             <nav>
-                <a onclick="showPage('home')" class="logo-area">
-                    <img src="logo.png" alt="Logo PDS" class="logo-img">
+                <a onclick="navigateTo('home')" class="logo-box">
+                    <img src="logo.png" alt="PDS" class="logo-img">
                     <span class="logo-text">PDS</span>
                 </a>
                 <ul class="nav-links">
-                    <li><a onclick="showPage('home')" id="link-home">Início</a></li>
-                    <li><a onclick="showPage('metodo')" id="link-metodo">Método</a></li>
-                    <li><a onclick="showPage('planos')" id="link-planos">Planos</a></li>
-                    <li><a onclick="showPage('sobre')" id="link-sobre">Sobre</a></li>
+                    <li><a onclick="navigateTo('home')" id="nav-home">Início</a></li>
+                    <li><a onclick="navigateTo('metodo')" id="nav-metodo">Método</a></li>
+                    <li><a onclick="navigateTo('planos')" id="nav-planos">Planos</a></li>
+                    <li><a onclick="navigateTo('sobre')" id="nav-sobre">Sobre</a></li>
                 </ul>
-                <a href="https://wa.me/5511966628913?text=Olá! Vi o site da PDS e gostaria de um diagnóstico gratuito." class="btn-header">Diagnóstico Gratuito</a>
+                <a href="https://wa.me/5511966628913?text=Olá! Vim pelo site e gostaria de agendar um diagnóstico gratuito." class="btn-diagnostico">Diagnóstico Gratuito</a>
             </nav>
         </div>
     </header>
 
-    <!-- PÁGINA: HOME -->
-    <div id="home" class="page active">
+    <!-- PÁGINA 1: HOME -->
+    <main id="home" class="page-content active">
         <div class="container">
             <div class="hero-grid">
                 <div class="hero-text">
-                    <span class="tag">Estratégia & Posicionamento</span>
-                    <h1>Marcas com mais potencial do que conseguem mostrar.</h1>
-                    <p>Diminuímos a distância entre o que seu negócio realmente é e o que o mercado enxerga através do digital.</p>
-                    <a onclick="showPage('metodo')" class="btn-primary">CONHEÇA O MÉTODO</a>
+                    <span>ESTRATÉGIA • CONTEÚDO • POSICIONAMENTO</span>
+                    <h1>Sua marca com o potencial que ela merece.</h1>
+                    <p>Ajudamos negócios a diminuírem a distância entre o que realmente são e o que o mercado enxerga através do digital.</p>
+                    <a onclick="navigateTo('metodo')" class="btn-call">CONHECER O MÉTODO</a>
                 </div>
-                <div class="hero-visual">
-                    <img src="diamond.png" alt="Diamante PDS" class="diamond-img">
+                <div class="diamond-visual">
+                    <img src="diamond.png" alt="PDS Diamante" class="diamond-img">
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
-    <!-- PÁGINA: MÉTODO -->
-    <div id="metodo" class="page">
+    <!-- PÁGINA 2: MÉTODO -->
+    <main id="metodo" class="page-content">
         <div class="container">
-            <div class="section-header">
-                <span class="tag">Método Passarela 360</span>
-                <h2>Como construímos sua marca</h2>
+            <div class="page-title">
+                <span>PASSARELA 360</span>
+                <h2>Nosso Método</h2>
+                <p>Estratégia antes de qualquer post.</p>
             </div>
             <div class="metodo-grid">
                 <div class="metodo-card">
-                    <span>01</span>
-                    <h3>Compreender</h3>
-                    <p>Análise profunda do seu negócio, público-alvo e objetivos reais de faturamento e presença.</p>
+                    <h3><span>01</span> Compreender</h3>
+                    <p>Diagnóstico completo do seu momento atual, público e objetivos de faturamento.</p>
                 </div>
                 <div class="metodo-card">
-                    <span>02</span>
-                    <h3>Direcionar</h3>
-                    <p>Criação da estratégia editorial, tom de voz e pilares de conteúdo que geram autoridade.</p>
+                    <h3><span>02</span> Direcionar</h3>
+                    <p>Criação da estratégia editorial, tom de voz e pilares que geram desejo na audiência.</p>
                 </div>
                 <div class="metodo-card">
-                    <span>03</span>
-                    <h3>Executar</h3>
-                    <p>Produção de artes, legendas magnéticas e gestão completa das suas redes sociais.</p>
+                    <h3><span>03</span> Executar</h3>
+                    <p>Produção de conteúdo de elite, design sofisticado e legendas que convertem.</p>
                 </div>
                 <div class="metodo-card">
-                    <span>04</span>
-                    <h3>Evoluir</h3>
-                    <p>Análise quinzenal de métricas para ajustar a rota e garantir o crescimento constante.</p>
+                    <h3><span>04</span> Evoluir</h3>
+                    <p>Análise de métricas e reuniões de alinhamento para escalada da marca.</p>
                 </div>
             </div>
-            <center style="margin-top: 50px;">
-                <a onclick="showPage('planos')" class="btn-primary">VER ESTRUTURAS DE PLANOS</a>
-            </center>
         </div>
-    </div>
+    </main>
 
-    <!-- PÁGINA: PLANOS -->
-    <div id="planos" class="page">
+    <!-- PÁGINA 3: PLANOS -->
+    <main id="planos" class="page-content">
         <div class="container">
-            <div class="section-header">
-                <span class="tag">Estruturas</span>
-                <h2>Planos sob medida</h2>
-                <p>A indicação ideal acontece após nossa conversa de diagnóstico.</p>
+            <div class="page-title">
+                <span>ESTRUTURAS</span>
+                <h2>Planos de Acompanhamento</h2>
             </div>
             <div class="planos-grid">
                 <div class="plano-card">
-                    <h3>🥉 Bronze</h3>
+                    <h3>Bronze</h3>
                     <ul>
                         <li><i class="fas fa-check"></i> Planejamento Quinzenal</li>
-                        <li><i class="fas fa-check"></i> Até 12 conteúdos mensais</li>
-                        <li><i class="fas fa-check"></i> Gestão de Redes Sociais</li>
+                        <li><i class="fas fa-check"></i> Até 12 posts/mês</li>
+                        <li><i class="fas fa-check"></i> Gestão Estratégica</li>
                     </ul>
-                    <a href="https://wa.me/5511966628913?text=Olá! Tenho interesse no Plano Bronze." class="btn-header" style="display:block; text-align:center;">SOLICITAR</a>
+                    <a href="https://wa.me/5511966628913?text=Quero saber mais sobre o Plano Bronze." class="btn-diagnostico">Saber mais</a>
                 </div>
                 <div class="plano-card featured">
-                    <h3>🥈 Silver</h3>
+                    <h3>Silver</h3>
                     <ul>
                         <li><i class="fas fa-check"></i> Planejamento Estratégico</li>
-                        <li><i class="fas fa-check"></i> Até 16 conteúdos mensais</li>
-                        <li><i class="fas fa-check"></i> Roteiros para Reels/Vídeos</li>
-                        <li><i class="fas fa-check"></i> Relatório de Performance</li>
+                        <li><i class="fas fa-check"></i> Até 16 posts/mês</li>
+                        <li><i class="fas fa-check"></i> Roteiros para Reels</li>
+                        <li><i class="fas fa-check"></i> Relatório Mensal</li>
                     </ul>
-                    <a href="https://wa.me/5511966628913?text=Olá! Tenho interesse no Plano Silver." class="btn-header" style="display:block; text-align:center;">SOLICITAR</a>
+                    <a href="https://wa.me/5511966628913?text=Quero saber mais sobre o Plano Silver." class="btn-diagnostico">Saber mais</a>
                 </div>
                 <div class="plano-card">
-                    <h3>🥇 Golden</h3>
+                    <h3>Golden</h3>
                     <ul>
                         <li><i class="fas fa-check"></i> Gestão Multi-canal</li>
-                        <li><i class="fas fa-check"></i> Até 20 conteúdos mensais</li>
+                        <li><i class="fas fa-check"></i> Até 20 posts/mês</li>
                         <li><i class="fas fa-check"></i> Consultoria de Branding</li>
                         <li><i class="fas fa-check"></i> Suporte Prioritário</li>
                     </ul>
-                    <a href="https://wa.me/5511966628913?text=Olá! Tenho interesse no Plano Golden." class="btn-header" style="display:block; text-align:center;">SOLICITAR</a>
+                    <a href="https://wa.me/5511966628913?text=Quero saber mais sobre o Plano Golden." class="btn-diagnostico">Saber mais</a>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
-    <!-- PÁGINA: SOBRE -->
-    <div id="sobre" class="page">
+    <!-- PÁGINA 4: SOBRE -->
+    <main id="sobre" class="page-content">
         <div class="container">
             <div class="sobre-grid">
-                <img src="joseane.jpg" alt="Joseane Gomes" class="sobre-img">
+                <div class="sobre-img-box">
+                    <img src="joseane.jpg" alt="Joseane Gomes" class="sobre-img">
+                </div>
                 <div class="sobre-text">
-                    <span class="tag">Quem faz a PDS</span>
-                    <h2>Um olhar que começa antes do post.</h2>
-                    <p>Olá, eu sou <strong>Joseane Gomes</strong>, fundadora da PDS.</p>
-                    <br>
-                    <p>Minha missão é transformar o potencial de marcas e profissionais em algo que o mercado consiga ver, desejar e comprar.</p>
-                    <br>
-                    <p>Na PDS, acreditamos que beleza sem estratégia é apenas enfeite. Por isso, nosso trabalho foca no seu posicionamento real.</p>
-                    <a href="https://wa.me/5511966628913" class="btn-primary">FALAR COMIGO NO WHATSAPP</a>
+                    <h2>Joseane Gomes & PDS</h2>
+                    <p>Acredito que bons negócios não deveriam permanecer invisíveis por falta de posicionamento.</p>
+                    <p>A PDS nasceu para dar voz e imagem profissional a quem já é excelente no que faz, mas ainda não domina o palco digital.</p>
+                    <p>Estratégia, Autenticidade e Estética Editorial: esses são nossos pilares.</p>
+                    <a href="https://wa.me/5511966628913" class="btn-call" style="margin-top:20px;">FALAR COMIGO</a>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <footer>
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-info">
-                    <div class="logo-area">
+            <div class="footer-flex">
+                <div class="footer-brand">
+                    <div class="logo-box">
                         <img src="logo.png" alt="" class="logo-img">
                         <span class="logo-text">PDS</span>
                     </div>
-                    <p style="margin-top:15px; color:#888;">Estratégia, Conteúdo e Posicionamento Digital.</p>
-                    <div class="social-icons">
+                    <p>Transformando potencial em presença digital de elite.</p>
+                    <div class="social-links">
                         <a href="https://www.instagram.com/passareladigitaldossonhos/" target="_blank"><i class="fab fa-instagram"></i></a>
                         <a href="https://www.linkedin.com/in/joseane-gomes-95b1a3273/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                         <a href="https://wa.me/5511966628913" target="_blank"><i class="fab fa-whatsapp"></i></a>
                         <a href="mailto:joseaneandregomes@gmail.com"><i class="far fa-envelope"></i></a>
                     </div>
                 </div>
-                <div class="footer-links">
-                    <h4 style="color:var(--magenta); margin-bottom:20px;">Páginas</h4>
-                    <ul style="list-style:none;">
-                        <li><a onclick="showPage('home')">Início</a></li>
-                        <li><a onclick="showPage('metodo')">Método</a></li>
-                        <li><a onclick="showPage('planos')">Planos</a></li>
-                        <li><a onclick="showPage('sobre')">Sobre</a></li>
+                <div class="footer-nav">
+                    <h4>Menu</h4>
+                    <ul>
+                        <li><a onclick="navigateTo('home')">Início</a></li>
+                        <li><a onclick="navigateTo('metodo')">Método</a></li>
+                        <li><a onclick="navigateTo('planos')">Planos</a></li>
+                        <li><a onclick="navigateTo('sobre')">Sobre</a></li>
                     </ul>
                 </div>
-                <div class="footer-links">
-                    <h4 style="color:var(--magenta); margin-bottom:20px;">Contato</h4>
-                    <p>+55 11 96662-8913</p>
+                <div class="footer-nav">
+                    <h4>Contato</h4>
                     <p>joseaneandregomes@gmail.com</p>
-                    <p>São Paulo, Brasil</p>
+                    <p>+55 11 96662-8913</p>
+                    <p>São Paulo | Brasil</p>
                 </div>
-            </div>
-            <div style="text-align:center; padding-top:40px; color:#444; font-size:0.8rem;">
-                &copy; 2024 PDS - Passarela Digital dos Sonhos.
             </div>
         </div>
     </footer>
 
     <script>
-        // MOTOR DE TROCA DE PÁGINAS
-        function showPage(pageId) {
-            // 1. Esconde todas as páginas
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
+        // FUNÇÃO DE NAVEGAÇÃO QUE ISOLA O CONTEÚDO
+        function navigateTo(pageId) {
+            // 1. Esconde todas as páginas e remove animação
+            const pages = document.querySelectorAll('.page-content');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
 
-            // 2. Remove a classe ativa de todos os links do menu
+            // 2. Tira o destaque de todos os links do menu
             const links = document.querySelectorAll('.nav-links a');
             links.forEach(link => link.classList.remove('active'));
 
             // 3. Mostra a página solicitada
-            const activePage = document.getElementById(pageId);
-            if(activePage) {
-                activePage.classList.add('active');
-                window.scrollTo(0, 0); // Volta pro topo da página
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                window.scrollTo(0, 0); // Sempre volta para o topo da "página"
             }
 
-            // 4. Marca o link atual como ativo
-            const activeLink = document.getElementById('link-' + pageId);
-            if(activeLink) activeLink.classList.add('active');
+            // 4. Destaca o link no menu
+            const targetLink = document.getElementById('nav-' + pageId);
+            if (targetLink) targetLink.classList.add('active');
 
-            // 5. Atualiza a URL sem recarregar (opcional, para ficar profissional)
+            // 5. Atualiza o endereço da URL (ex: site.com/#sobre)
             window.location.hash = pageId;
         }
 
-        // Lógica para carregar a página certa se o usuário digitar o link direto (ex: site.com/#planos)
+        // Lógica para quando o site carrega ou o usuário clica em "Voltar"
         window.addEventListener('load', () => {
-            const hash = window.location.hash.replace('#', '');
-            if (hash) {
-                showPage(hash);
+            const currentHash = window.location.hash.replace('#', '');
+            if (currentHash) {
+                navigateTo(currentHash);
             } else {
-                showPage('home');
+                navigateTo('home');
             }
         });
     </script>
