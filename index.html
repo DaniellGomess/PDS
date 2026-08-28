@@ -6,32 +6,28 @@
     <meta name="description" content="PDS - Estratégia, Conteúdo e Posicionamento para marcas que buscam excelência digital.">
     <title>PDS | Passarela Digital dos Sonhos</title>
     
-    <!-- FAVICON (Aba do navegador) -->
+    <!-- FAVICON -->
     <link rel="icon" type="image/png" href="dpsv.png">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Ícones FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* VARIÁVEIS DE COR E MARCA */
         :root {
             --roxo-profundo: #180720;
             --roxo: #4A1265;
             --magenta: #B33C8D;
             --creme: #F7F2EC;
-            --grafite: #29252C;
-            --dourado: #D2AF5D;
             --branco: #ffffff;
-            --transicao: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --transicao: all 0.5s ease;
         }
 
-        /* RESET BÁSICO */
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: var(--roxo-profundo);
@@ -40,403 +36,306 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3, .logo-text { font-family: 'Lora', serif; font-weight: 600; }
-        a { text-decoration: none; color: inherit; }
-
+        h1, h2, h3, .logo-text { font-family: 'Lora', serif; }
+        a { text-decoration: none; color: inherit; cursor: pointer; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
 
-        /* HEADER & NAVBAR */
+        /* HEADER FIXO */
         header {
             padding: 20px 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            transition: var(--transicao);
-            background: rgba(24, 7, 32, 0.85);
+            background: rgba(24, 7, 32, 0.95);
             backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-        header.scrolled { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
 
         nav { display: flex; justify-content: space-between; align-items: center; }
-
         .logo-area { display: flex; align-items: center; gap: 12px; }
-        .logo-img { height: 45px; width: auto; }
-        .logo-text { font-size: 1.8rem; letter-spacing: 2px; }
+        .logo-img { height: 40px; width: auto; }
+        .logo-text { font-size: 1.6rem; letter-spacing: 2px; }
 
         .nav-links { display: flex; list-style: none; gap: 25px; }
-        .nav-links a { 
-            font-size: 0.8rem; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-            font-weight: 400; 
-            opacity: 0.8;
-            transition: 0.3s;
-        }
-        .nav-links a:hover { opacity: 1; color: var(--magenta); }
+        .nav-links a { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; opacity: 0.7; }
+        .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--magenta); }
 
         .btn-header {
             background: var(--magenta);
-            color: white;
-            padding: 12px 25px;
+            padding: 10px 20px;
             border-radius: 4px;
             font-weight: 600;
             font-size: 0.75rem;
-            transition: var(--transicao);
         }
-        .btn-header:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(179, 60, 141, 0.4); }
 
-        /* HERO SECTION */
-        .hero {
-            padding: 200px 0 100px;
+        /* LÓGICA DE PÁGINAS SEPARADAS */
+        .page {
+            display: none; /* Esconde todas as páginas */
+            padding-top: 120px; /* Espaço para o header fixo */
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-        }
-        .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 50px; align-items: center; }
-        
-        .hero-text span { color: var(--magenta); font-weight: 700; letter-spacing: 3px; font-size: 0.8rem; display: block; margin-bottom: 20px; }
-        .hero-text h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 30px; }
-        .hero-text p { font-size: 1.1rem; color: #b7a9bc; margin-bottom: 40px; max-width: 90%; }
-
-        .hero-btns { display: flex; gap: 20px; }
-        .btn-primary {
-            background: var(--magenta);
-            color: white;
-            padding: 20px 35px;
-            font-weight: 700;
-            border-radius: 4px;
-            transition: var(--transicao);
-        }
-        .btn-secondary {
-            border: 1px solid var(--branco);
-            padding: 20px 35px;
-            border-radius: 4px;
-            transition: var(--transicao);
+            animation: fadeIn 0.6s ease;
         }
 
-        .hero-visual { position: relative; display: flex; justify-content: center; }
-        .diamond-img {
-            width: 100%;
-            max-width: 500px;
-            filter: drop-shadow(0 0 30px rgba(179, 60, 141, 0.3));
-            animation: float 6s ease-in-out infinite;
+        .page.active {
+            display: block; /* Mostra apenas a página ativa */
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-25px); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* SEÇÃO TESE (CREME) */
-        .tese { background: var(--creme); color: var(--roxo-profundo); padding: 120px 0; text-align: center; }
-        .tese h2 { font-size: 2.8rem; max-width: 900px; margin: 0 auto 60px; }
-        .tese-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
-        .tese-item { text-align: left; padding: 30px; border-left: 1px solid rgba(24, 7, 32, 0.1); }
-        .tese-item h3 { margin-bottom: 15px; color: var(--roxo); }
+        /* ESTILOS HOME (HERO) */
+        .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 50px; align-items: center; padding: 100px 0; }
+        .hero-text h1 { font-size: 3.5rem; line-height: 1.1; margin: 20px 0; }
+        .diamond-img { width: 100%; max-width: 450px; filter: drop-shadow(0 0 30px rgba(179,60,141,0.3)); animation: float 6s infinite ease-in-out; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
 
-        /* MÉTODO SECTION */
-        .metodo { padding: 120px 0; background: var(--roxo-profundo); }
-        .section-tag { color: var(--magenta); text-align: center; font-weight: 700; letter-spacing: 2px; display: block; margin-bottom: 15px; }
-        .section-title { text-align: center; font-size: 3rem; margin-bottom: 60px; }
-        
-        .metodo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-        .metodo-card {
-            background: rgba(255,255,255,0.03);
-            padding: 40px 30px;
-            border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: 0.3s;
-        }
-        .metodo-card:hover { border-color: var(--magenta); transform: translateY(-10px); }
-        .metodo-card span { font-size: 3rem; font-family: 'Lora'; color: var(--magenta); opacity: 0.3; display: block; margin-bottom: 20px; }
+        .btn-primary { background: var(--magenta); padding: 18px 30px; display: inline-block; border-radius: 4px; font-weight: 700; margin-top: 30px; }
 
-        /* PLANOS */
-        .planos { padding: 120px 0; background: #13051a; }
-        .planos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-        .plano-card {
-            background: var(--roxo-profundo);
-            padding: 50px 40px;
-            border-radius: 15px;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: var(--transicao);
-            display: flex;
-            flex-direction: column;
-        }
-        .plano-card.featured { border-color: var(--magenta); transform: scale(1.05); z-index: 2; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-        .plano-card h3 { font-size: 1.8rem; margin-bottom: 25px; }
-        .plano-card ul { list-style: none; margin-bottom: 40px; flex-grow: 1; }
-        .plano-card ul li { margin-bottom: 15px; font-size: 0.9rem; color: #ccc; display: flex; gap: 12px; }
-        .plano-card ul li i { color: var(--magenta); margin-top: 4px; }
-        
-        .btn-plano {
-            text-align: center;
-            padding: 15px;
-            border: 1px solid var(--magenta);
-            font-weight: 600;
-            transition: 0.3s;
-            border-radius: 4px;
-        }
-        .plano-card.featured .btn-plano { background: var(--magenta); }
-        .btn-plano:hover { background: var(--magenta); color: white; }
+        /* ESTILOS MÉTODO / PLANOS / SOBRE */
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 3rem; color: var(--branco); }
+        .tag { color: var(--magenta); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 10px; }
+
+        /* GRID MÉTODO */
+        .metodo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+        .metodo-card { background: rgba(255,255,255,0.03); padding: 40px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05); }
+        .metodo-card h3 { color: var(--magenta); margin-bottom: 15px; }
+
+        /* GRID PLANOS */
+        .planos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .plano-card { background: #13051a; padding: 40px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); position: relative; }
+        .plano-card.featured { border-color: var(--magenta); transform: scale(1.05); }
+        .plano-card ul { list-style: none; margin: 30px 0; }
+        .plano-card li { margin-bottom: 12px; font-size: 0.9rem; color: #ccc; display: flex; gap: 10px; }
+        .plano-card i { color: var(--magenta); }
 
         /* SOBRE */
-        .sobre { padding: 120px 0; }
-        .sobre-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-        .sobre-img { width: 100%; border-radius: 15px; filter: grayscale(0.5); transition: 0.5s; }
-        .sobre-img:hover { filter: grayscale(0); }
+        .sobre-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .sobre-img { width: 100%; border-radius: 15px; }
 
         /* FOOTER */
-        footer { padding: 100px 0 50px; background: #0a030d; border-top: 1px solid rgba(255,255,255,0.05); }
-        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
-        .footer-brand p { color: #888; margin: 20px 0; max-width: 300px; }
-        
-        .social-links { display: flex; gap: 20px; }
-        .social-links a { 
-            width: 45px; height: 45px; 
-            border: 1px solid rgba(255,255,255,0.1); 
-            display: flex; align-items: center; justify-content: center; 
-            border-radius: 50%; transition: 0.3s; font-size: 1.2rem;
-        }
-        .social-links a:hover { background: var(--magenta); border-color: var(--magenta); transform: translateY(-5px); }
+        footer { padding: 80px 0 40px; background: #0a030d; margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.05); }
+        .footer-content { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 50px; }
+        .social-icons { display: flex; gap: 15px; margin-top: 20px; }
+        .social-icons a { font-size: 1.3rem; transition: 0.3s; opacity: 0.6; }
+        .social-icons a:hover { opacity: 1; color: var(--magenta); }
 
-        .footer-nav h4 { color: var(--magenta); margin-bottom: 25px; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
-        .footer-nav ul { list-style: none; }
-        .footer-nav ul li { margin-bottom: 12px; }
-        .footer-nav ul li a { color: #ccc; transition: 0.3s; font-size: 0.9rem; }
-        .footer-nav ul li a:hover { color: white; padding-left: 5px; }
-
-        .footer-bottom { text-align: center; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.05); color: #555; font-size: 0.8rem; }
-
-        /* MOBILE RESPONSIVE */
-        @media (max-width: 992px) {
-            .hero-grid, .metodo-grid, .planos-grid, .tese-grid, .sobre-grid, .footer-grid { grid-template-columns: 1fr; }
-            .hero { text-align: center; padding-top: 150px; }
-            .hero-text h1 { font-size: 2.6rem; }
-            .hero-btns { justify-content: center; flex-direction: column; }
-            .nav-links, .btn-header { display: none; }
-            .plano-card.featured { transform: scale(1); }
-            .metodo-card { text-align: center; }
+        /* RESPONSIVIDADE */
+        @media (max-width: 900px) {
+            .hero-grid, .metodo-grid, .planos-grid, .sobre-grid, .footer-content { grid-template-columns: 1fr; text-align: center; }
+            .hero-text h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- HEADER -->
-    <header id="header">
+    <header>
         <div class="container">
             <nav>
-                <a href="#" class="logo-area">
+                <a onclick="showPage('home')" class="logo-area">
                     <img src="logo.png" alt="Logo PDS" class="logo-img">
                     <span class="logo-text">PDS</span>
                 </a>
                 <ul class="nav-links">
-                    <li><a href="#tese">A PDS</a></li>
-                    <li><a href="#metodo">Método</a></li>
-                    <li><a href="#planos">Planos</a></li>
-                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a onclick="showPage('home')" id="link-home">Início</a></li>
+                    <li><a onclick="showPage('metodo')" id="link-metodo">Método</a></li>
+                    <li><a onclick="showPage('planos')" id="link-planos">Planos</a></li>
+                    <li><a onclick="showPage('sobre')" id="link-sobre">Sobre</a></li>
                 </ul>
-                <a href="https://wa.me/5511966628913?text=Olá! Vi o site da PDS e gostaria de agendar um diagnóstico gratuito para minha marca." class="btn-header">Diagnóstico Gratuito</a>
+                <a href="https://wa.me/5511966628913?text=Olá! Vi o site da PDS e gostaria de um diagnóstico gratuito." class="btn-header">Diagnóstico Gratuito</a>
             </nav>
         </div>
     </header>
 
-    <!-- HERO -->
-    <section class="hero">
-        <div class="container hero-grid">
-            <div class="hero-text">
-                <span>ESTRATÉGIA • CONTEÚDO • POSICIONAMENTO</span>
-                <h1>Marcas com mais potencial do que conseguem mostrar.</h1>
-                <p>Ajudamos negócios a diminuírem a distância entre o que realmente são e o que o mercado enxerga através do digital.</p>
-                <div class="hero-btns">
-                    <a href="https://wa.me/5511966628913?text=Olá! Gostaria de conversar sobre como a PDS pode ajudar no posicionamento e conteúdo da minha marca." class="btn-primary">QUERO CONVERSAR</a>
-                    <a href="#metodo" class="btn-secondary">VER MÉTODO</a>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <img src="diamond.png" alt="Diamante PDS" class="diamond-img">
-            </div>
-        </div>
-    </section>
-
-    <!-- TESE -->
-    <section id="tese" class="tese">
+    <!-- PÁGINA: HOME -->
+    <div id="home" class="page active">
         <div class="container">
-            <h2>Conteúdo não começa no Canva. Começa no entendimento.</h2>
-            <div class="tese-grid">
-                <div class="tese-item">
-                    <h3>01. Entender</h3>
-                    <p>Ninguém vende o que não compreende. Mergulhamos no seu negócio antes de criar qualquer peça.</p>
+            <div class="hero-grid">
+                <div class="hero-text">
+                    <span class="tag">Estratégia & Posicionamento</span>
+                    <h1>Marcas com mais potencial do que conseguem mostrar.</h1>
+                    <p>Diminuímos a distância entre o que seu negócio realmente é e o que o mercado enxerga através do digital.</p>
+                    <a onclick="showPage('metodo')" class="btn-primary">CONHEÇA O MÉTODO</a>
                 </div>
-                <div class="tese-item">
-                    <h3>02. Posicionar</h3>
-                    <p>Diferenciação é a única defesa contra um mercado saturado e barulhento.</p>
-                </div>
-                <div class="tese-item">
-                    <h3>03. Comunicar</h3>
-                    <p>Criamos a ponte entre o seu valor real e a percepção do seu cliente ideal.</p>
+                <div class="hero-visual">
+                    <img src="diamond.png" alt="Diamante PDS" class="diamond-img">
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- MÉTODO -->
-    <section id="metodo" class="metodo">
+    <!-- PÁGINA: MÉTODO -->
+    <div id="metodo" class="page">
         <div class="container">
-            <span class="section-tag">O CAMINHO</span>
-            <h2 class="section-title">Método Passarela 360</h2>
+            <div class="section-header">
+                <span class="tag">Método Passarela 360</span>
+                <h2>Como construímos sua marca</h2>
+            </div>
             <div class="metodo-grid">
                 <div class="metodo-card">
                     <span>01</span>
                     <h3>Compreender</h3>
-                    <p>Análise de cenário, público e objetivos reais de negócio.</p>
+                    <p>Análise profunda do seu negócio, público-alvo e objetivos reais de faturamento e presença.</p>
                 </div>
                 <div class="metodo-card">
                     <span>02</span>
                     <h3>Direcionar</h3>
-                    <p>Definição de tom de voz, pilares e estratégia editorial.</p>
+                    <p>Criação da estratégia editorial, tom de voz e pilares de conteúdo que geram autoridade.</p>
                 </div>
                 <div class="metodo-card">
                     <span>03</span>
                     <h3>Executar</h3>
-                    <p>Criação de artes, roteiros magnéticos e gestão ativa.</p>
+                    <p>Produção de artes, legendas magnéticas e gestão completa das suas redes sociais.</p>
                 </div>
                 <div class="metodo-card">
                     <span>04</span>
                     <h3>Evoluir</h3>
-                    <p>Acompanhamento de métricas e ajustes para crescimento.</p>
+                    <p>Análise quinzenal de métricas para ajustar a rota e garantir o crescimento constante.</p>
                 </div>
             </div>
+            <center style="margin-top: 50px;">
+                <a onclick="showPage('planos')" class="btn-primary">VER ESTRUTURAS DE PLANOS</a>
+            </center>
         </div>
-    </section>
+    </div>
 
-    <!-- PLANOS -->
-    <section id="planos" class="planos">
+    <!-- PÁGINA: PLANOS -->
+    <div id="planos" class="page">
         <div class="container">
-            <span class="section-tag">ESTRUTURAS</span>
-            <h2 class="section-title">Planos sob medida</h2>
+            <div class="section-header">
+                <span class="tag">Estruturas</span>
+                <h2>Planos sob medida</h2>
+                <p>A indicação ideal acontece após nossa conversa de diagnóstico.</p>
+            </div>
             <div class="planos-grid">
-                <!-- Bronze -->
                 <div class="plano-card">
-                    <h3>🥉 Bronze Dreams</h3>
+                    <h3>🥉 Bronze</h3>
                     <ul>
                         <li><i class="fas fa-check"></i> Planejamento Quinzenal</li>
-                        <li><i class="fas fa-check"></i> Calendário Editorial</li>
                         <li><i class="fas fa-check"></i> Até 12 conteúdos mensais</li>
-                        <li><i class="fas fa-check"></i> Direcionamento para Stories</li>
+                        <li><i class="fas fa-check"></i> Gestão de Redes Sociais</li>
                     </ul>
-                    <a href="https://wa.me/5511966628913?text=Olá! Gostaria de saber mais detalhes sobre o Plano Bronze." class="btn-plano">SOLICITAR DIAGNÓSTICO</a>
+                    <a href="https://wa.me/5511966628913?text=Olá! Tenho interesse no Plano Bronze." class="btn-header" style="display:block; text-align:center;">SOLICITAR</a>
                 </div>
-                <!-- Silver -->
                 <div class="plano-card featured">
-                    <h3>🥈 Silver Dreams</h3>
+                    <h3>🥈 Silver</h3>
                     <ul>
                         <li><i class="fas fa-check"></i> Planejamento Estratégico</li>
                         <li><i class="fas fa-check"></i> Até 16 conteúdos mensais</li>
-                        <li><i class="fas fa-check"></i> Roteiros para Vídeos/Reels</li>
-                        <li><i class="fas fa-check"></i> Relatório Mensal de Performance</li>
+                        <li><i class="fas fa-check"></i> Roteiros para Reels/Vídeos</li>
+                        <li><i class="fas fa-check"></i> Relatório de Performance</li>
                     </ul>
-                    <a href="https://wa.me/5511966628913?text=Olá! Gostaria de saber mais detalhes sobre o Plano Silver." class="btn-plano">SOLICITAR DIAGNÓSTICO</a>
+                    <a href="https://wa.me/5511966628913?text=Olá! Tenho interesse no Plano Silver." class="btn-header" style="display:block; text-align:center;">SOLICITAR</a>
                 </div>
-                <!-- Golden -->
                 <div class="plano-card">
-                    <h3>🥇 Golden Dreams</h3>
+                    <h3>🥇 Golden</h3>
                     <ul>
-                        <li><i class="fas fa-check"></i> Gestão de até 3 canais</li>
+                        <li><i class="fas fa-check"></i> Gestão Multi-canal</li>
                         <li><i class="fas fa-check"></i> Até 20 conteúdos mensais</li>
-                        <li><i class="fas fa-check"></i> Estratégia de Conversão</li>
-                        <li><i class="fas fa-check"></i> Reunião Estratégica Quinzenal</li>
+                        <li><i class="fas fa-check"></i> Consultoria de Branding</li>
+                        <li><i class="fas fa-check"></i> Suporte Prioritário</li>
                     </ul>
-                    <a href="https://wa.me/5511966628913?text=Olá! Gostaria de saber mais detalhes sobre o Plano Golden." class="btn-plano">SOLICITAR DIAGNÓSTICO</a>
+                    <a href="https://wa.me/5511966628913?text=Olá! Tenho interesse no Plano Golden." class="btn-header" style="display:block; text-align:center;">SOLICITAR</a>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- SOBRE -->
-    <section id="sobre" class="sobre">
-        <div class="container sobre-grid">
-            <img src="joseane.jpg" alt="Joseane Gomes" class="sobre-img">
-            <div class="sobre-text">
-                <span class="section-tag">QUEM FAZ</span>
-                <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Um olhar que começa antes do post.</h2>
-                <p>Olá, eu sou <strong>Joseane Gomes</strong>, fundadora da PDS.</p>
-                <br>
-                <p>Acredito que bons negócios não deveriam permanecer invisíveis simplesmente por não conseguirem mostrar ao mercado tudo o que realmente oferecem.</p>
-                <br>
-                <p>Foi dessa visão que nasceu a PDS: da vontade de olhar para marcas com profundidade, entender antes de criar e construir estratégias que façam sentido para cada negócio.</p>
+    <!-- PÁGINA: SOBRE -->
+    <div id="sobre" class="page">
+        <div class="container">
+            <div class="sobre-grid">
+                <img src="joseane.jpg" alt="Joseane Gomes" class="sobre-img">
+                <div class="sobre-text">
+                    <span class="tag">Quem faz a PDS</span>
+                    <h2>Um olhar que começa antes do post.</h2>
+                    <p>Olá, eu sou <strong>Joseane Gomes</strong>, fundadora da PDS.</p>
+                    <br>
+                    <p>Minha missão é transformar o potencial de marcas e profissionais em algo que o mercado consiga ver, desejar e comprar.</p>
+                    <br>
+                    <p>Na PDS, acreditamos que beleza sem estratégia é apenas enfeite. Por isso, nosso trabalho foca no seu posicionamento real.</p>
+                    <a href="https://wa.me/5511966628913" class="btn-primary">FALAR COMIGO NO WHATSAPP</a>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- FOOTER -->
     <footer>
         <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <div class="logo-area" style="margin-bottom: 20px;">
-                        <img src="logo.png" alt="Logo PDS" class="logo-img">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <div class="logo-area">
+                        <img src="logo.png" alt="" class="logo-img">
                         <span class="logo-text">PDS</span>
                     </div>
-                    <p>Estratégia, Conteúdo e Posicionamento para marcas que não aceitam o comum.</p>
-                    <div class="social-links">
+                    <p style="margin-top:15px; color:#888;">Estratégia, Conteúdo e Posicionamento Digital.</p>
+                    <div class="social-icons">
                         <a href="https://www.instagram.com/passareladigitaldossonhos/" target="_blank"><i class="fab fa-instagram"></i></a>
                         <a href="https://www.linkedin.com/in/joseane-gomes-95b1a3273/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                         <a href="https://wa.me/5511966628913" target="_blank"><i class="fab fa-whatsapp"></i></a>
                         <a href="mailto:joseaneandregomes@gmail.com"><i class="far fa-envelope"></i></a>
                     </div>
                 </div>
-                <div class="footer-nav">
-                    <h4>Navegação</h4>
-                    <ul>
-                        <li><a href="#">Início</a></li>
-                        <li><a href="#tese">A PDS</a></li>
-                        <li><a href="#metodo">Método</a></li>
-                        <li><a href="#planos">Planos</a></li>
+                <div class="footer-links">
+                    <h4 style="color:var(--magenta); margin-bottom:20px;">Páginas</h4>
+                    <ul style="list-style:none;">
+                        <li><a onclick="showPage('home')">Início</a></li>
+                        <li><a onclick="showPage('metodo')">Método</a></li>
+                        <li><a onclick="showPage('planos')">Planos</a></li>
+                        <li><a onclick="showPage('sobre')">Sobre</a></li>
                     </ul>
                 </div>
-                <div class="footer-nav">
-                    <h4>Contato</h4>
-                    <ul>
-                        <li><a href="https://wa.me/5511966628913">+55 11 96662-8913</a></li>
-                        <li><a href="mailto:joseaneandregomes@gmail.com">joseaneandregomes@gmail.com</a></li>
-                        <li>São Paulo | Brasil</li>
-                    </ul>
+                <div class="footer-links">
+                    <h4 style="color:var(--magenta); margin-bottom:20px;">Contato</h4>
+                    <p>+55 11 96662-8913</p>
+                    <p>joseaneandregomes@gmail.com</p>
+                    <p>São Paulo, Brasil</p>
                 </div>
             </div>
-            <div class="footer-bottom">
-                &copy; 2024 PDS - Passarela Digital dos Sonhos. Todos os direitos reservados.
+            <div style="text-align:center; padding-top:40px; color:#444; font-size:0.8rem;">
+                &copy; 2024 PDS - Passarela Digital dos Sonhos.
             </div>
         </div>
     </footer>
 
     <script>
-        // Efeito de Header ao Scroll
-        window.addEventListener('scroll', function() {
-            const header = document.getElementById('header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
+        // MOTOR DE TROCA DE PÁGINAS
+        function showPage(pageId) {
+            // 1. Esconde todas as páginas
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+
+            // 2. Remove a classe ativa de todos os links do menu
+            const links = document.querySelectorAll('.nav-links a');
+            links.forEach(link => link.classList.remove('active'));
+
+            // 3. Mostra a página solicitada
+            const activePage = document.getElementById(pageId);
+            if(activePage) {
+                activePage.classList.add('active');
+                window.scrollTo(0, 0); // Volta pro topo da página
             }
-        });
 
-        // Revelar elementos ao rolar a página
-        const observerOptions = { threshold: 0.1 };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
+            // 4. Marca o link atual como ativo
+            const activeLink = document.getElementById('link-' + pageId);
+            if(activeLink) activeLink.classList.add('active');
 
-        document.querySelectorAll('section').forEach(section => {
-            section.style.opacity = '0';
-            section.style.transform = 'translateY(30px)';
-            section.style.transition = 'all 0.8s ease-out';
-            observer.observe(section);
+            // 5. Atualiza a URL sem recarregar (opcional, para ficar profissional)
+            window.location.hash = pageId;
+        }
+
+        // Lógica para carregar a página certa se o usuário digitar o link direto (ex: site.com/#planos)
+        window.addEventListener('load', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (hash) {
+                showPage(hash);
+            } else {
+                showPage('home');
+            }
         });
     </script>
 </body>
