@@ -76,16 +76,16 @@
         }
         .btn-diagnostico:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(179, 60, 141, 0.4); }
 
-        /* MOTOR DE PÁGINAS (DISPLAY NONE/BLOCK) */
+        /* MOTOR DE PÁGINAS */
         .page-content {
-            display: none; /* Todas começam escondidas */
+            display: none;
             padding-top: 120px;
             min-height: 100vh;
             animation: pageFade 0.5s ease forwards;
         }
 
         .page-content.active {
-            display: block; /* Só a ativa aparece */
+            display: block;
         }
 
         @keyframes pageFade {
@@ -100,9 +100,36 @@
         .hero-text p { font-size: 1.2rem; color: var(--cinza); margin-bottom: 40px; }
         .btn-call { background: var(--magenta); padding: 20px 40px; display: inline-block; border-radius: 4px; font-weight: 700; }
 
-        .diamond-visual { position: relative; display: flex; justify-content: center; }
-        .diamond-img { width: 100%; max-width: 480px; animation: float 6s infinite ease-in-out; }
+        /* --- O DIAMANTE COM CONTORNO E AURA --- */
+        .diamond-visual { 
+            position: relative; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+        }
+
+        /* Aura de luz atrás do diamante */
+        .diamond-aura {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(179, 60, 141, 0.4) 0%, rgba(74, 18, 101, 0) 70%);
+            filter: blur(40px);
+            z-index: 1;
+            animation: pulse 4s infinite alternate;
+        }
+
+        .diamond-img { 
+            width: 100%; 
+            max-width: 480px; 
+            z-index: 2;
+            /* O Contorno Brilhante direto na imagem */
+            filter: drop-shadow(0 0 20px rgba(179, 60, 141, 0.5)) drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+            animation: float 6s infinite ease-in-out; 
+        }
+
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        @keyframes pulse { from { opacity: 0.5; transform: scale(1); } to { opacity: 1; transform: scale(1.2); } }
 
         /* --- ESTILOS DA PÁGINA: MÉTODO --- */
         .page-title { text-align: center; margin-bottom: 60px; }
@@ -172,7 +199,7 @@
                     <li><a onclick="navigateTo('planos')" id="nav-planos">Planos</a></li>
                     <li><a onclick="navigateTo('sobre')" id="nav-sobre">Sobre</a></li>
                 </ul>
-                <a href="https://wa.me/5511966628913?text=Olá! Vim pelo site e gostaria de agendar um diagnóstico gratuito." class="btn-diagnostico">Diagnóstico Gratuito</a>
+                <a href="https://wa.me/5511966628913?text=Olá! Vim pelo site da PDS e gostaria de agendar um diagnóstico gratuito para meu negócio." class="btn-diagnostico">Diagnóstico Gratuito</a>
             </nav>
         </div>
     </header>
@@ -188,6 +215,9 @@
                     <a onclick="navigateTo('metodo')" class="btn-call">CONHECER O MÉTODO</a>
                 </div>
                 <div class="diamond-visual">
+                    <!-- Aura atrás do diamante -->
+                    <div class="diamond-aura"></div>
+                    <!-- Diamante com brilho no contorno -->
                     <img src="diamond.png" alt="PDS Diamante" class="diamond-img">
                 </div>
             </div>
@@ -205,7 +235,7 @@
             <div class="metodo-grid">
                 <div class="metodo-card">
                     <h3><span>01</span> Compreender</h3>
-                    <p>Diagnóstico completo do seu momento atual, público e objetivos de faturamento.</p>
+                    <p>Diagnóstico completo do seu momento atual, público e objetivos reais de faturamento.</p>
                 </div>
                 <div class="metodo-card">
                     <h3><span>02</span> Direcionar</h3>
@@ -238,7 +268,7 @@
                         <li><i class="fas fa-check"></i> Até 12 posts/mês</li>
                         <li><i class="fas fa-check"></i> Gestão Estratégica</li>
                     </ul>
-                    <a href="https://wa.me/5511966628913?text=Quero saber mais sobre o Plano Bronze." class="btn-diagnostico">Saber mais</a>
+                    <a href="https://wa.me/5511966628913?text=Olá! Gostaria de saber mais sobre o plano Bronze." class="btn-diagnostico">Saber mais</a>
                 </div>
                 <div class="plano-card featured">
                     <h3>Silver</h3>
@@ -248,7 +278,7 @@
                         <li><i class="fas fa-check"></i> Roteiros para Reels</li>
                         <li><i class="fas fa-check"></i> Relatório Mensal</li>
                     </ul>
-                    <a href="https://wa.me/5511966628913?text=Quero saber mais sobre o Plano Silver." class="btn-diagnostico">Saber mais</a>
+                    <a href="https://wa.me/5511966628913?text=Olá! Gostaria de saber mais sobre o plano Silver." class="btn-diagnostico">Saber mais</a>
                 </div>
                 <div class="plano-card">
                     <h3>Golden</h3>
@@ -258,7 +288,7 @@
                         <li><i class="fas fa-check"></i> Consultoria de Branding</li>
                         <li><i class="fas fa-check"></i> Suporte Prioritário</li>
                     </ul>
-                    <a href="https://wa.me/5511966628913?text=Quero saber mais sobre o Plano Golden." class="btn-diagnostico">Saber mais</a>
+                    <a href="https://wa.me/5511966628913?text=Olá! Gostaria de saber mais sobre o plano Golden." class="btn-diagnostico">Saber mais</a>
                 </div>
             </div>
         </div>
@@ -318,34 +348,27 @@
     </footer>
 
     <script>
-        // FUNÇÃO DE NAVEGAÇÃO QUE ISOLA O CONTEÚDO
         function navigateTo(pageId) {
-            // 1. Esconde todas as páginas e remove animação
             const pages = document.querySelectorAll('.page-content');
             pages.forEach(page => {
                 page.classList.remove('active');
             });
 
-            // 2. Tira o destaque de todos os links do menu
             const links = document.querySelectorAll('.nav-links a');
             links.forEach(link => link.classList.remove('active'));
 
-            // 3. Mostra a página solicitada
             const targetPage = document.getElementById(pageId);
             if (targetPage) {
                 targetPage.classList.add('active');
-                window.scrollTo(0, 0); // Sempre volta para o topo da "página"
+                window.scrollTo(0, 0);
             }
 
-            // 4. Destaca o link no menu
             const targetLink = document.getElementById('nav-' + pageId);
             if (targetLink) targetLink.classList.add('active');
 
-            // 5. Atualiza o endereço da URL (ex: site.com/#sobre)
             window.location.hash = pageId;
         }
 
-        // Lógica para quando o site carrega ou o usuário clica em "Voltar"
         window.addEventListener('load', () => {
             const currentHash = window.location.hash.replace('#', '');
             if (currentHash) {
